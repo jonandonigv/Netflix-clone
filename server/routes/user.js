@@ -47,7 +47,7 @@ router.get('/find/:id', async (req, res, next) => {
 });
 // GET ALL
 
-router.delete('/', verify, async (req, res, next) => {
+router.get('/', verify, async (req, res, next) => {
     const query = req.query.new;
     if (req.user.isAdmin) {
         try {
