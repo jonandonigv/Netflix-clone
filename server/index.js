@@ -5,6 +5,7 @@ const dotenv = require('dotenv');
 const authRoutes = require('./routes/auth');
 const userRoutes = require('./routes/user');
 const movieRoutes = require('./routes/movies');
+const listRoutes = require('./routes/list');
 
 
 const app = express();
@@ -16,6 +17,7 @@ app.use(express.json());
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/movies', movieRoutes);
+app.use('/api/list', listRoutes);
 
 app.listen(8080, () => {
     console.log("[SERVER] Server is running in http://localhost:8080");

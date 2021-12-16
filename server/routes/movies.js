@@ -4,7 +4,7 @@ const verify = require('../utils/verifyToken');
 
 // CREATE
 
-router.post('/:id', verify, async (req, res, next) => {
+router.post('/createMovie', verify, async (req, res, next) => {
     if (req.user.isAdmin) {
         const newMovie = new Movie(req.body);
 
