@@ -11,6 +11,7 @@ import MailOutlineOutlinedIcon from '@mui/icons-material/MailOutlineOutlined';
 import DynamicFeedOutlinedIcon from '@mui/icons-material/DynamicFeedOutlined';
 import ChatBubbleOutlineOutlinedIcon from '@mui/icons-material/ChatBubbleOutlineOutlined';
 import WorkOutlineOutlinedIcon from '@mui/icons-material/WorkOutlineOutlined';
+import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
 import ReportIcon from '@mui/icons-material/Report';
 import {Link} from 'react-router-dom'
 
@@ -46,8 +47,8 @@ export default function Sidebar() {
                         </Link>
                         <Link to='/movies' className='link'>
                             <li className="sidebarListItem">
-                                <StorefrontIcon className='sidebarIcon'/>
-                                Products
+                                <PlayCircleOutlineIcon className='sidebarIcon'/>
+                                Movies
                             </li>
                         </Link>
                         <li className="sidebarListItem">
