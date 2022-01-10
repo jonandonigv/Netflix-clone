@@ -13,8 +13,12 @@ import { NewUser } from "./pages/newUser/NewUser";
 import { MovieList} from "./pages/movieList/MovieList";
 import { Movie } from "./pages/movie/Movie";
 import { NewMovie } from "./pages/newMovie/NewMovie";
+import { useEffect, useMemo, useState } from "react";
+import axios from 'axios'
+import { Login } from "./pages/login/Login";
 
 function App() {
+
   return (
     <Router className="App">
       <Topbar />
@@ -22,6 +26,7 @@ function App() {
         <Sidebar />
         <Routes >
           <Route exact path='/' element={<Home/>}/>
+          <Route exact path='/login' element={<Login/>}/>
           <Route exact path='/users' element={<UserList/>}/>
           <Route exact path='/user/:userId' element={<User />}/>
           <Route exact path='/newUser' element={<NewUser />}/>
