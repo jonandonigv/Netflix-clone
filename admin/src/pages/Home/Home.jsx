@@ -5,12 +5,48 @@ import './home.scss'
 import { userData } from '../../dummyData'
 import WidgetSmall from '../../components/widgetSmall/WidgetSmall'
 import WidgetLarge from '../../components/widgetLarge/WidgetLarge'
+import { useState, useEffect, useMemo } from 'react'
+import axios from 'axios'
 
 export default function Home() {
+
+    const MONTHS = useMemo(() => [
+        "Jan",
+        "Feb",
+        "Mar",
+        "Apr",
+        "May",
+        "Jun",
+        "Jul",
+        "Aug",
+        "Sep",
+        "Oct",
+        "Nov",
+        "Dec"
+        
+      ], []);
+    
+      const [userStats, setUserStats] = useState([]);
+    
+      useEffect(() => {
+        const getStats = async () => {
+          try {
+            const res = await axios.get('/users/stats', {headers: {token: "Bearer "}}); // Here goes the token
+            const statsList = res.data.sort((a, b) => {
+                return a._id - b._id;
+            })
+            statsList.map((item) => setUserStats(prev=>[...prev, {name: MONTHS[item._id-1], "New User": item.total}]))
+          } catch (error) {
+            console.log(error);
+          }
+        }
+        getStats();
+      }, [MONTHS]);
+
     return (
         <div className='home'>
             <FeaturedInfo />
-            <Chart data={userData} title={'User Analytics'} grid dataKey='Active User'/>
+            <Chart data={userStats} title={'User Analytics'} grid dataKey='New User'/>
             <div className="homeWidgets">
                 <WidgetSmall />
                 <WidgetLarge />
