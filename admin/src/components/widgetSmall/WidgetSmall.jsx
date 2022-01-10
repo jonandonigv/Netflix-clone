@@ -1,67 +1,42 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './widgetSmall.scss'
 import VisibilityIcon from '@mui/icons-material/Visibility';
+import { useEffect } from 'react';
+import axios from 'axios';
 
 export default function WidgetSmall() {
+
+    const [newUser, setNewUser] = useState([]);
+    useEffect(()=>{
+        const getNewUsers = async () => {
+            try {
+                const res =  await axios.get('/users?new=true', {headers: {
+                    token: 'Bearer' // Here goes the token
+                }});
+                setNewUser(res.data)
+            } catch (error) {
+                console.log(error)
+            }
+        };
+        getNewUsers();
+    }, []);
+
     return (
         <div className='widgetSmall'>
             <span className="widgetSmallTitle">New Join Members</span>
             <ul className="widgetSmallList">
-                <li className="widgetSmallListItem">
-                    <img src="https://images.pexels.com/photos/3992656/pexels-photo-3992656.png?auto=compress&cs=tinysrgb&dpr=2&w=500" alt="" className="widgetSmallImg" />
+                {newUser.map((user) => {
+                    <li className="widgetSmallListItem">
+                    <img src={user.profilePic || 'https://ih0.redbubble.net/image.618427277.3222/flat,1000x1000,075,f.u2.jpg'} alt="" className="widgetSmallImg" />
                     <div className="widgetSmallUser">
-                        <span className="widgetSmallUsername">Anna Keller</span>
-                        <span className="widgetSmallUserTitle">Sofware Engineer</span>
+                        <span className="widgetSmallUsername">{user.username}</span>
                     </div>
                     <button className="widgetSmallButton">
                         <VisibilityIcon className='widgetSmallIcon'/>
                         Display
                     </button>
                 </li>
-                <li className="widgetSmallListItem">
-                    <img src="https://images.pexels.com/photos/3992656/pexels-photo-3992656.png?auto=compress&cs=tinysrgb&dpr=2&w=500" alt="" className="widgetSmallImg" />
-                    <div className="widgetSmallUser">
-                        <span className="widgetSmallUsername">Anna Keller</span>
-                        <span className="widgetSmallUserTitle">Sofware Engineer</span>
-                    </div>
-                    <button className="widgetSmallButton">
-                        <VisibilityIcon className='widgetSmallIcon'/>
-                        Display
-                    </button>
-                </li>
-                <li className="widgetSmallListItem">
-                    <img src="https://images.pexels.com/photos/3992656/pexels-photo-3992656.png?auto=compress&cs=tinysrgb&dpr=2&w=500" alt="" className="widgetSmallImg" />
-                    <div className="widgetSmallUser">
-                        <span className="widgetSmallUsername">Anna Keller</span>
-                        <span className="widgetSmallUserTitle">Sofware Engineer</span>
-                    </div>
-                    <button className="widgetSmallButton">
-                        <VisibilityIcon className='widgetSmallIcon'/>
-                        Display
-                    </button>
-                </li>
-                <li className="widgetSmallListItem">
-                    <img src="https://images.pexels.com/photos/3992656/pexels-photo-3992656.png?auto=compress&cs=tinysrgb&dpr=2&w=500" alt="" className="widgetSmallImg" />
-                    <div className="widgetSmallUser">
-                        <span className="widgetSmallUsername">Anna Keller</span>
-                        <span className="widgetSmallUserTitle">Sofware Engineer</span>
-                    </div>
-                    <button className="widgetSmallButton">
-                        <VisibilityIcon className='widgetSmallIcon'/>
-                        Display
-                    </button>
-                </li>
-                <li className="widgetSmallListItem">
-                    <img src="https://images.pexels.com/photos/3992656/pexels-photo-3992656.png?auto=compress&cs=tinysrgb&dpr=2&w=500" alt="" className="widgetSmallImg" />
-                    <div className="widgetSmallUser">
-                        <span className="widgetSmallUsername">Anna Keller</span>
-                        <span className="widgetSmallUserTitle">Sofware Engineer</span>
-                    </div>
-                    <button className="widgetSmallButton">
-                        <VisibilityIcon className='widgetSmallIcon'/>
-                        Display
-                    </button>
-                </li>
+                })}
             </ul>
         </div>
     )
