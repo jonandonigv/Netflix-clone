@@ -17,7 +17,7 @@ app.use(express.json());
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/movies', movieRoutes);
-app.use('/api/list', listRoutes);
+app.use('/api/lists', listRoutes);
 
 app.listen(8080, () => {
     console.log("[SERVER] Server is running in http://localhost:8080");
