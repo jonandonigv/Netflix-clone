@@ -21,7 +21,7 @@ router.post('/register', async (req, res, next) => {
 });
 
 // LOGIN
-router.post('login', async (req, res, next) => {
+router.post('/login', async (req, res, next) => {
     try {
         const user = await User.findOne({email: req.body.email});
         !user && res.status(401).json({msg: 'Wrong password or email'});
