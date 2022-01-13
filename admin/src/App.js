@@ -13,28 +13,34 @@ import { NewUser } from "./pages/newUser/NewUser";
 import { MovieList} from "./pages/movieList/MovieList";
 import { Movie } from "./pages/movie/Movie";
 import { NewMovie } from "./pages/newMovie/NewMovie";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, useContext } from "react";
 import axios from 'axios'
 import { Login } from "./pages/login/Login";
+import {AuthContext} from './context/authContext/AuthContext'
 
 function App() {
+  const {user} = useContext(AuthContext);
 
   return (
     <Router className="App">
-      <Topbar />
-      <div className="container">
-        <Sidebar />
-        <Routes >
-          <Route exact path='/' element={<Home/>}/>
-          <Route exact path='/login' element={<Login/>}/>
-          <Route exact path='/users' element={<UserList/>}/>
-          <Route exact path='/user/:userId' element={<User />}/>
-          <Route exact path='/newUser' element={<NewUser />}/>
-          <Route exact path='/movies' element={<MovieList />}/>
-          <Route exact path='/movie/:movieId' element={<Movie />}/>
-          <Route exact path='/newMovie' element={<NewMovie />}/>
-        </Routes>
-      </div>
+      <Routes>
+        <Route exact path='/login' element={user ? <Home/> : <Login/>}/>
+        {user && (
+          <>
+            <Topbar />
+            <div className="container">
+              <Sidebar />
+              <Route exact path='/users' element={<UserList/>}/>
+              <Route exact path='/user/:userId' element={<User />}/>
+              <Route exact path='/newUser' element={<NewUser />}/>
+              <Route exact path='/movies' element={<MovieList />}/>
+              <Route exact path='/movie/:movieId' element={<Movie />}/>
+              <Route exact path='/newMovie' element={<NewMovie />}/>
+              {/* TODO: List routes */}
+            </div>
+          </>
+        )}
+      </Routes>
     </Router>
   );
 }
