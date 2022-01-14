@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 
@@ -13,14 +14,15 @@ const app = express();
 dotenv.config();
 
 app.use(express.json());
+app.use(cors());
 
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/movies', movieRoutes);
 app.use('/api/lists', listRoutes);
 
-app.listen(8080, () => {
-    console.log("[SERVER] Server is running in http://localhost:8080");
+app.listen(8000, () => {
+    console.log("[SERVER] Server is running in http://localhost:8000");
     mongoose.connect(process.env.MONGO_URL).then(() => {
         console.log('[SERVER] DB connection successfull');
     }).catch((err) => console.log(err));
