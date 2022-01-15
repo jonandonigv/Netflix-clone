@@ -1,5 +1,5 @@
 import axios from "axios";
-import { loginStart, loginSuccess, loginFailure } from "./AuthActions";
+import { loginStart, loginSuccess, loginFailure, logout } from "./AuthActions";
 
 export const login = async (user, dispatch) => {
   dispatch(loginStart());
@@ -9,4 +9,8 @@ export const login = async (user, dispatch) => {
   } catch (error) {
       dispatch(loginFailure());
   }
+};
+
+export const logout = (dispatch) => { //TODO: implement the logout buttom
+  dispatch(logout());
 };
