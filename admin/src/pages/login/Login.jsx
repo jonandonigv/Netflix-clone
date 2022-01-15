@@ -4,22 +4,25 @@ import './login.scss'
 import { login } from '../../context/authContext/ApiCall';
 import { AuthContext } from '../../context/authContext/AuthContext';
 
-export const Login = () => {
+const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const {isFetching, dispathc} = useContext(AuthContext);
+    const {isFetching, dispatch} = useContext(AuthContext);
 
-    const handleLogin = (e) => {
+   function handleLogin(e) {
         e.preventDefault();
-        login({email, password}, dispathc);
-    }
+        login({ email, password }, dispatch);
+    };
+
     return (
-        <div className='login'>
+        <div className="login">
             <form action="" className="loginForm">
-                <input type="text" placeholder='email' className="loginInput" onChange={(e) => {setEmail(e.value)}}/>
-                <input type="password" placeholder='password' className="loginInput" onChange={(p) => setPassword(p.value)}/>
-                <button className='loginButton' onClick={handleLogin()} disabled={isFetching}>Login</button>
+                <input type="text" placeholder='email' className="loginInput" onChange={(e) => setEmail(e.target.value)}/>
+                <input type="password" placeholder='password' className="loginInput" onChange={(e) => setPassword(e.target.value)}/>
+                <button className="loginButton" onClick={handleLogin} disabled={isFetching}>Login</button>
             </form>
         </div>
-    )
+    );
 }
+
+export default Login
