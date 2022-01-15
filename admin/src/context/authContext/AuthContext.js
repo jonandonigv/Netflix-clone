@@ -13,8 +13,19 @@ export const AuthContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(AuthReducer, INITIAL_STATE);
 
   useEffect(() => {
-    localStorage.setItem("user", JSON.stringify(state.user)); //FIXME: It stringifies even when its null so it makes the user a string and because of it login 
+    localStorage.setItem("user", JSON.stringify(state.user ? state.user.info : null)); //TODO: In theory it works as intended but I don't know why.
   }, [state.user]);
 
-  return <AuthContext.Provider value={{user: state.user, isFetching: state.isFetching, error: state.error, dispatch}}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider
+      value={{
+        user: state.user,
+        isFetching: state.isFetching,
+        error: state.error,
+        dispatch,
+      }}
+    >
+      {children}
+    </AuthContext.Provider>
+  );
 };
