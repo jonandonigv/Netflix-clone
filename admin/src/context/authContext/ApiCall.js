@@ -11,6 +11,6 @@ export const login = async (user, dispatch) => {
   }
 };
 
-export const logout = (dispatch) => { //TODO: implement the logout buttom
-  dispatch(logout());
-};
+// export const logout = (dispatch) => { //TODO: implement the logout buttom
+//   dispatch(logout());
+// };
