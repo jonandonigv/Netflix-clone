@@ -1,11 +1,22 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import Chart from '../../components/chart/Chart'
+import React, { useEffect, useState } from 'react'
+import { Link, useLocation, useParams } from 'react-router-dom'
 import './movie.scss'
-import { movieData } from '../../dummyData'
 import Publish from '@mui/icons-material/Publish'
+import axios from 'axios'
 
 export const Movie = () => {
+    const params = useParams();
+    const [movie, setMovie] = useState({});
+
+    useEffect(() => {
+        const getMovie = async (id) => {
+            const res = await axios.get("http://localhost:8000/api/movies/find/" + id, {headers: {token: "Bearer " + JSON.parse(localStorage.getItem("user")).accessToken}});
+            setMovie(res.data);
+        };
+        getMovie(params.movieId);
+    }, []);
+
+
     return (
         <div className='movie'>
             <div className="movieTitleContainer">
@@ -15,30 +26,27 @@ export const Movie = () => {
                 </Link>
             </div>
             <div className="movieTop">
-                <div className="movieTopLeft">
-                    <Chart data={movieData} dataKey='Movie watch' title='Movie Spectators'/>
-                </div>
                 <div className="movieTopRight">
                     <div className="movieInfoTop">
                         <img src="https://images.pexels.com/photos/3137890/pexels-photo-3137890.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" alt="" className="movieInfoImg" />
-                        <span className="movieName">Movie Name</span>
+                        <span className="movieName">{movie.title}</span>
                     </div>
                     <div className="movieInfoBottom">
                         <div className="movieInfoItem">
                             <span className="movieInfoKey">id:</span>
-                            <span className="movieInfoValue">123</span>
+                            <span className="movieInfoValue">{movie._id}</span>
                         </div>
                         <div className="movieInfoItem">
-                            <span className="movieInfoKey">sales:</span>
-                            <span className="movieInfoValue">432342</span>
+                            <span className="movieInfoKey">genre:</span>
+                            <span className="movieInfoValue">{movie.gender}</span>
                         </div>
                         <div className="movieInfoItem">
-                            <span className="movieInfoKey">active:</span>
-                            <span className="movieInfoValue">yes</span>
+                            <span className="movieInfoKey">year:</span>
+                            <span className="movieInfoValue">{movie.year}</span>
                         </div>
                         <div className="movieInfoItem">
-                            <span className="movieInfoKey">in Stock:</span>
-                            <span className="movieInfoValue">no</span>
+                            <span className="movieInfoKey">limit:</span>
+                            <span className="movieInfoValue">{movie.limit}</span>
                         </div>
                     </div>
                 </div>
@@ -46,23 +54,24 @@ export const Movie = () => {
             <div className="movieBottom">
                 <form action="" className="movieForm">
                     <div className="movieFormLeft">
-                        <label htmlFor="">Movie Name</label>
-                        <input type="text" placeholder='Movie name' />
-                        <label htmlFor="">In Stock</label>
-                        <select name='instock' id='inStock'>
-                            <option value="yes">Yes</option>
-                            <option value="no">No</option>
-                        </select>
-                        <label htmlFor="">Active</label>
-                        <select name='active' id='active'>
-                            <option value="yes">Yes</option>
-                            <option value="no">No</option>
-                        </select>
+                        <label htmlFor="">Movie Title</label>
+                        <input type="text" placeholder={movie.title} />
+                        <label htmlFor="">Year</label>
+                        <input type="text" placeholder={movie.year} />
+                        <label htmlFor="">Genre</label>
+                        <input type="text" placeholder={movie.gender} />
+                        <label htmlFor="">Limit</label>
+                        <input type="text" placeholder={movie.limit} />
+                        <label htmlFor="">Trailer</label>
+                        <input type="file" placeholder={movie.trailer} />
+                        <label htmlFor="">Video</label>
+                        <input type="file" placeholder={movie.video} />
+                        
                     </div>
                     <div className="movieFormRight">
                         <div className="movieUpdaload">
-                            <img src="https://images.pexels.com/photos/3137890/pexels-photo-3137890.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" alt="" className="movieUploadImg" />
-                            <label for='file'>
+                            <img src={movie.img} alt="" className="movieUploadImg" />
+                            <label htmlFor='file'>
                                 <Publish/>
                             </label>
                             <input type="file" id='file' style={{display: 'none'}} />
