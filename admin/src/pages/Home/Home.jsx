@@ -32,10 +32,10 @@ export default function Home() {
 
       const getStats = async () => {
         try {
-          const res = await axios.get("users/stats", {
+          const res = await axios.get("http://localhost:8000/api/users/stats", {
             headers: {
               token: 
-                "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxZGQ5NTMzNjkzZWM3MDU2ZWFlY2Q2YyIsImlzQWRtaW4iOnRydWUsImlhdCI6MTY0MjExNDU4OSwiZXhwIjoxNjQyNTQ2NTg5fQ.PWuZrYFxk8WDAcTDW8_bOI2Nf1UrN2vFRoYkbpSlxco"
+                "Bearer " + JSON.parse(localStorage.getItem("user")).accessToken
             },
           });
           const statsList = res.data.sort((a, b) => {
