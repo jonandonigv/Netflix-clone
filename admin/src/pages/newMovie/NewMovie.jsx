@@ -121,6 +121,15 @@ export const NewMovie = () => {
           />
         </div>
         <div className="newUserItem">
+          <label>Year</label>
+          <input
+            type="text"
+            placeholder="Year"
+            name="year"
+            onChange={handleChange}
+          />
+        </div>
+        <div className="newUserItem">
           <label>Duration</label>
           <input
             type="text"
