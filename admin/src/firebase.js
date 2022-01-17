@@ -1,6 +1,5 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
 import { getStorage } from "firebase/storage";
 
 // TODO: Add SDKs for Firebase products that you want to use
@@ -8,19 +7,20 @@ import { getStorage } from "firebase/storage";
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+
 const firebaseConfig = {
-  apiKey: process.env.FIREBASE_APIKEY,
-  authDomain: process.env.AUTH_DOMAIN,
-  projectId: process.env.PROJECT_ID,
-  storageBucket: process.env.STORAGEBUCKET,
-  messagingSenderId: process.env.MESSAGING_SENDER_ID,
-  appId: process.env.APP_ID,
-  measurementId: process.env.MEASUREMENT_ID,
+  apiKey: 'AIzaSyCSxFbo4fjtATzrkiJOZjdDJg_r-GuPuw8',
+  authDomain: 'netflix-clone-a9843.firebaseapp.com',
+  projectId: 'netflix-clone-a9843',
+  storageBucket: 'netflix-clone-a9843.appspot.com',
+  messagingSenderId: '280093582437',
+  appId: '1:280093582437:web:b0ce2e24ec1094e225528c',
+  measurementId: 'G-960GB06WWY',
 };
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+const firebaseApp = initializeApp(firebaseConfig);
 
 // Get a reference to the storage service, which is used to create references in your storage bucket
-export const storage = getStorage(firebaseApp);
+const storage = getStorage(firebaseApp);
+export default storage;
