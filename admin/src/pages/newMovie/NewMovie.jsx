@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import storage from "../../firebase";
 import "./newMovie.scss";
-import { ref, uploadBytes } from "firebase/storage";
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 
 export const NewMovie = () => {
   const [movie, setMovie] = useState(null);
@@ -22,7 +22,27 @@ export const NewMovie = () => {
       const fileName = new Date().getTime() + item.label + item.file.name;
       const storageRef = ref(storage, `items/${fileName}`);
 
-      const uploadTask = uploadBytes(storageRef, item.file);
+      const uploadTask = uploadBytesResumable(storageRef, item.file); // Upload the file.
+      uploadTask.on(
+        "state_changed",
+        (snapshot) => {
+          const progress =
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          console.log(`Upload is ${progress}% done.`);
+        },
+        (error) => {
+          // TODO: Handle unsuccessful uploads.
+          console.log(error);
+        },
+        () => {
+          getDownloadURL(uploadTask.snapshot.ref).then((url) => {
+            setMovie((prev) => {
+              return {...prev, [item.label]: url};
+            });
+            setUploaded((prev) => prev + 1);
+          });
+        }
+      );
     });
   };
 
