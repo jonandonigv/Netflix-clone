@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import storage from "../../firebase";
 import "./newMovie.scss";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import { createMovie } from "../../context/movieContext/ApiCall";
+import { MovieContext } from "../../context/movieContext/MovieContext";
 
 export const NewMovie = () => {
   const [movie, setMovie] = useState(null);
@@ -11,6 +13,7 @@ export const NewMovie = () => {
   const [trailer, setTrailer] = useState(null);
   const [video, setVideo] = useState(null);
   const [uploaded, setUploaded] = useState(0);
+  const { dispatch } = useContext(MovieContext);
 
   const handleChange = (e) => {
     const value = e.target.value;
@@ -37,7 +40,7 @@ export const NewMovie = () => {
         () => {
           getDownloadURL(uploadTask.snapshot.ref).then((url) => {
             setMovie((prev) => {
-              return {...prev, [item.label]: url};
+              return { ...prev, [item.label]: url };
             });
             setUploaded((prev) => prev + 1);
           });
@@ -57,6 +60,11 @@ export const NewMovie = () => {
     ]);
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    createMovie(movie, dispatch);
+  };
+
   return (
     <div className="newMovie">
       <h1 className="newUser">New Movie</h1>
@@ -65,7 +73,6 @@ export const NewMovie = () => {
           <label>Image</label>
           <input
             type="file"
-            placeholder="title"
             id="img"
             name="img"
             onChange={(e) => setImg(e.target.files[0])}
@@ -93,7 +100,7 @@ export const NewMovie = () => {
         </div>
         <div className="newUserItem">
           <label>Title</label>
-          <input type="text" placeholder="title" onChange={handleChange} />
+          <input type="text" placeholder="title" name="title" onChange={handleChange} />
         </div>
         <div className="newUserItem">
           <label>Description</label>
@@ -125,7 +132,7 @@ export const NewMovie = () => {
         <div className="newUserItem">
           <label>Limit</label>
           <input
-            type="text"
+            type="number"
             placeholder="Limit"
             name="limit"
             onChange={handleChange}
@@ -160,7 +167,9 @@ export const NewMovie = () => {
           />
         </div>
         {uploaded === 5 ? (
-          <button className="newUserButton">Create</button>
+          <button className="newUserButton" onClick={handleSubmit}>
+            Create
+          </button>
         ) : (
           <button className="newUserButton" onClick={handleUpload}>
             Upload
