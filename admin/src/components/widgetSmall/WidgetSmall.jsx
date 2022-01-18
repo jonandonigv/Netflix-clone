@@ -10,8 +10,8 @@ export default function WidgetSmall() {
     useEffect(()=>{
         const getNewUsers = async () => {
             try {
-                const res =  await axios.get('/users?new=true', {headers: {
-                    token: 'Bearer' // Here goes the token
+                const res =  await axios.get('http://localhost:8000/api/users?new=true', {headers: {
+                    token: 'Bearer ' + JSON.parse(localStorage.getItem("user")).accessToken // Here goes the token
                 }});
                 setNewUser(res.data)
             } catch (error) {
