@@ -1,19 +1,19 @@
 import { createContext, useEffect, useReducer } from "react";
-import MovieReducer from "./ListReducer";
+import ListReducer from "./ListReducer";
 
 const INITIAL_STATE = {
-  movies: [],
+  lists: [],
   isFetching: false,
   error: false,
 };
 
-export const MovieContext = createContext(INITIAL_STATE);
+export const ListContext = createContext(INITIAL_STATE);
 
-export const MovieContextProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(MovieReducer, INITIAL_STATE);
+export const ListContextProvider = ({ children }) => {
+  const [state, dispatch] = useReducer(ListReducer, INITIAL_STATE);
 
   return (
-    <MovieContext.Provider
+    <ListContext.Provider
       value={{
         movies: state.movies,
         isFetching: state.isFetching,
@@ -22,6 +22,6 @@ export const MovieContextProvider = ({ children }) => {
       }}
     >
       {children}
-    </MovieContext.Provider>
+    </ListContext.Provider>
   );
 };

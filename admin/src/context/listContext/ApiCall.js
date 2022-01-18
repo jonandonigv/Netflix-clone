@@ -13,7 +13,7 @@ import {
   editMovieSuccess,
   editMovieFailure,
 } from "./ListActions";
-
+// TODO: Change to the new list actions.
 export const getMovies = async (dispatch) => {
   dispatch(getMoviesStart());
   try {
