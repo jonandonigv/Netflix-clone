@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Link, useLocation, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import "./list.scss";
-import Publish from "@mui/icons-material/Publish";
 import axios from "axios";
 
 export const List = () => {
@@ -66,7 +65,6 @@ export const List = () => {
             <input type="text" placeholder={list.type} />
             <label htmlFor="">Genre</label>
             <input type="text" placeholder={list.genre} />
-            
           </div>
           <div className="movieFormRight">
             <button className="movieButton">Update</button>
