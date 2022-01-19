@@ -72,5 +72,15 @@ router.get('/', verify, async (req, res, next) => {
     }
 });
 
+// GET ONE LIST
+router.get('/find/:id', verify, async (req, res, next) => {
+    try {
+        const list = await List.findById(req.params.id);
+        res.status(200).json(list);
+    } catch (error) {
+        res.status(500).json(error);
+    }
+});
+
 
 module.exports = router;
