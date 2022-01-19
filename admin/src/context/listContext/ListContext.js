@@ -15,7 +15,7 @@ export const ListContextProvider = ({ children }) => {
   return (
     <ListContext.Provider
       value={{
-        movies: state.movies,
+        lists: state.lists,
         isFetching: state.isFetching,
         error: state.error,
         dispatch

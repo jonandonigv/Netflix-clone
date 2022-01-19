@@ -8,7 +8,7 @@ export const getListsSuccess = (lists) => ({
 export const getListsFailure = () => ({
   type: "GET_LISTS_FAILURE",
 });
-// create
+/* // create
 export const createListStart = () => ({
   type: "CREATE_LIST_START",
 });
@@ -30,6 +30,7 @@ export const editListSuccess = (list) => ({
 export const editListFailure = () => ({
   type: "EDIT_LIST_FAILURE",
 });
+*/
 // delete
 export const deleteListStart = () => ({
   type: "DELETE_LIST_START",
@@ -40,4 +41,4 @@ export const deleteListSuccess = (id) => ({
 });
 export const deleteListFailure = () => ({
   type: "DELETE_LIST_FAILURE",
-});
+}); 
