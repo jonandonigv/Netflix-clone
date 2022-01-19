@@ -2,7 +2,12 @@ import Sidebar from "./components/sidebar/Sidebar";
 import Topbar from "./components/topbar/Topbar";
 import "./app.scss";
 import Home from "./pages/Home/Home";
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 import UserList from "./pages/userList/UserList";
 import { User } from "./pages/user/User";
 import { NewUser } from "./pages/newUser/NewUser";
@@ -13,6 +18,8 @@ import { useContext } from "react";
 import Login from "./pages/login/Login";
 import { AuthContext } from "./context/authContext/AuthContext";
 import { ListList } from "./pages/listList/ListList";
+import { List } from "./pages/list/List";
+import { NewList } from "./pages/newList/NewList";
 
 function App() {
   const { user } = useContext(AuthContext);
@@ -20,7 +27,10 @@ function App() {
   return (
     <Router className="App">
       <Routes>
-        <Route path="/login" element={user ? <Navigate to={'/'} /> : <Login />} /> 
+        <Route
+          path="/login"
+          element={user ? <Navigate to={"/"} /> : <Login />}
+        />
       </Routes>
       {user && (
         <>
@@ -36,7 +46,9 @@ function App() {
               <Route path="/movie/:movieId" element={<Movie />} />
               <Route path="/newMovie" element={<NewMovie />} />
               {/* TODO: List routes */}
-              <Route path="/lists" element={<ListList/>}/>
+              <Route path="/lists" element={<ListList />} />
+              <Route path="/list/:listId" element={<List />} />
+              <Route path="/newList" element={<NewList />} />
             </Routes>
           </div>
         </>
