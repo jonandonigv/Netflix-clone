@@ -9,7 +9,7 @@ import { getLists, deleteList } from "../../context/listContext/ApiCall";
 
 export const ListList = () => {
   const { lists, dispatch } = useContext(ListContext);
-
+  console.log(lists);
   useEffect(() => {
     getLists(dispatch);
   }, [dispatch]);
