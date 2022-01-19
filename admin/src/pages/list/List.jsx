@@ -6,7 +6,7 @@ import axios from "axios";
 
 export const List = () => {
   const params = useParams();
-  const [movie, setMovie] = useState({});
+  const [list, setList] = useState({});
   useEffect(() => {
     const getMovie = async (id) => {
       const res = await axios.get(
@@ -18,7 +18,7 @@ export const List = () => {
           },
         }
       );
-      setMovie(res.data);
+      setList(res.data);
     };
     getMovie(params.listId);
   }, []);
@@ -39,20 +39,20 @@ export const List = () => {
               alt=""
               className="movieInfoImg"
             />
-            <span className="movieName">{movie.title}</span>
+            <span className="movieName">{list.title}</span>
           </div>
           <div className="movieInfoBottom">
             <div className="movieInfoItem">
               <span className="movieInfoKey">id:</span>
-              <span className="movieInfoValue">{movie._id}</span>
+              <span className="movieInfoValue">{list._id}</span>
             </div>
             <div className="movieInfoItem">
               <span className="movieInfoKey">genre:</span>
-              <span className="movieInfoValue">{movie.genre}</span>
+              <span className="movieInfoValue">{list.genre}</span>
             </div>
             <div className="movieInfoItem">
               <span className="movieInfoKey">type:</span>
-              <span className="movieInfoValue">{movie.type}</span>
+              <span className="movieInfoValue">{list.type}</span>
             </div>
           </div>
         </div>
@@ -60,27 +60,15 @@ export const List = () => {
       <div className="movieBottom">
         <form action="" className="movieForm">
           <div className="movieFormLeft">
-            <label htmlFor="">Movie Title</label>
-            <input type="text" placeholder={movie.title} />
-            <label htmlFor="">Year</label>
-            <input type="text" placeholder={movie.year} />
+            <label htmlFor="">List Title</label>
+            <input type="text" placeholder={list.title} />
+            <label htmlFor="">Type</label>
+            <input type="text" placeholder={list.type} />
             <label htmlFor="">Genre</label>
-            <input type="text" placeholder={movie.gender} />
-            <label htmlFor="">Limit</label>
-            <input type="text" placeholder={movie.limit} />
-            <label htmlFor="">Trailer</label>
-            <input type="file" placeholder={movie.trailer} />
-            <label htmlFor="">Video</label>
-            <input type="file" placeholder={movie.video} />
+            <input type="text" placeholder={list.genre} />
+            
           </div>
           <div className="movieFormRight">
-            <div className="movieUpdaload">
-              <img src={movie.img} alt="" className="movieUploadImg" />
-              <label htmlFor="file">
-                <Publish />
-              </label>
-              <input type="file" id="file" style={{ display: "none" }} />
-            </div>
             <button className="movieButton">Update</button>
             {/* TODO: make the button update the db */}
           </div>
