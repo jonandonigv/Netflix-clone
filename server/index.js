@@ -1,6 +1,8 @@
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
+const morgan = require('morgan');
+const helmet = require('helmet');
 const dotenv = require('dotenv');
 
 const authRoutes = require('./routes/auth');
@@ -15,6 +17,8 @@ dotenv.config();
 
 app.use(express.json());
 app.use(cors());
+app.use(helmet());
+app.use(morgan('common'));
 
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
