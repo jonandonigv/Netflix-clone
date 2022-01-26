@@ -26,7 +26,7 @@ export const List = () => {
     <div className="movie">
       <div className="movieTitleContainer">
         <h1 className="movieTitle">Movie</h1>
-        <Link to="/newMovie">
+        <Link to="/newList">
           <button className="movieAddButton">Create</button>
         </Link>
       </div>
