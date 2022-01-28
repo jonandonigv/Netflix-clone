@@ -6,10 +6,12 @@ import axios from 'axios';
 
 export default function Featured({type}) {
     const [content, setContent] = useState({});
+    console.log(content);
     useEffect(() => {
         const getRandomContent = async () => {
             try {
-                const res = await axios.get(`/movies/random?type=${type}`);
+                const res = await axios.get(`http://localhost:8000/api/movies/random?type=${type}`);
+                console.log(res.data[0]);
                 setContent(res.data[0]);
             } catch (error) {
                 console.log(error);

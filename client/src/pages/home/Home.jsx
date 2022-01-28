@@ -12,9 +12,9 @@ const Home = ({type}) => {
     useEffect(() => {
         const getRandomLists = async () => {
             try {
-                const res = await axios.get(`lists${type ? "?type=" + type : ""}&${genre ? "&genre=" + genre : ""}`, {
+                const res = await axios.get(`http://localhost:8000/api/lists${type ? "?type=" + type : ""}${genre ? "&genre=" + genre : ""}`, {
                     headers: {
-                        token: "Bearer " // TODO: Here goes the jwt token after login in.
+                        token: "Bearer " + JSON.parse(localStorage.getItem("user")).accessToken
                     }
                 });
                 setLists(res.data);
@@ -29,7 +29,7 @@ const Home = ({type}) => {
             <Navbar />
             <Featured  type={type}/>
             {lists.map((list) => {
-                <List list={list} />
+                return <List list={list} />
             })}
         </div>
     )
